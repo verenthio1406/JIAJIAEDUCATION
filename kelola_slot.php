@@ -399,7 +399,7 @@ try {
             jt.nama_jenistingkat,
             tl.jumlahpertemuan
         FROM jadwal_slot js
-        INNER JOIN cabangGuru cg ON js.cabangguruID = cg.id
+        INNER JOIN cabangguru cg ON js.cabangguruID = cg.id
         INNER JOIN guru g ON cg.guru_id = g.guru_id
         INNER JOIN cabang c ON cg.cabang_id = c.cabang_id
         LEFT JOIN jenistingkat jt ON js.jenistingkat_id = jt.jenistingkat_id
@@ -505,7 +505,7 @@ try {
             g.nama_guru,
             c.nama_cabang,
             cg.cabang_id
-        FROM cabangGuru cg
+        FROM cabangguru cg
         INNER JOIN guru g ON cg.guru_id = g.guru_id
         INNER JOIN cabang c ON cg.cabang_id = c.cabang_id
         WHERE g.status = 'aktif'
@@ -564,7 +564,7 @@ try {
         FROM guru_datales gd
         INNER JOIN guru g ON gd.guru_id = g.guru_id
         INNER JOIN cabang c ON gd.cabang_id = c.cabang_id
-        INNER JOIN cabangGuru cg ON (cg.guru_id = gd.guru_id AND cg.cabang_id = gd.cabang_id)
+        INNER JOIN cabangguru cg ON (cg.guru_id = gd.guru_id AND cg.cabang_id = gd.cabang_id)
         INNER JOIN datales d ON gd.datales_id = d.datales_id
         INNER JOIN jenistingkat jt ON d.jenistingkat_id = jt.jenistingkat_id
         INNER JOIN tipeles tl ON jt.tipeles_id = tl.tipeles_id
@@ -611,7 +611,7 @@ try {
             jt.nama_jenistingkat,
             tl.jumlahpertemuan
         FROM jadwal_slot js
-        INNER JOIN cabangGuru cg ON js.cabangguruID = cg.id
+        INNER JOIN cabangguru cg ON js.cabangguruID = cg.id
         INNER JOIN guru g ON cg.guru_id = g.guru_id
         INNER JOIN cabang c ON cg.cabang_id = c.cabang_id
         LEFT JOIN jenistingkat jt ON js.jenistingkat_id = jt.jenistingkat_id
