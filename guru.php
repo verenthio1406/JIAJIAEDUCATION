@@ -73,6 +73,25 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 $message_type = 'danger';
             } else {
                 try {
+                    // Hapus relasi di tabel jadwal_slot dulu
+                    $stmt = $conn->prepare("DELETE FROM jadwal_slot WHERE cabangguruID IN (SELECT id FROM cabangguru WHERE guru_id = ?)");
+                    $stmt->bind_param("i", $guru_id);
+                    $stmt->execute();
+                    $stmt->close();
+                    
+                    // Hapus relasi di tabel cabangguru
+                    $stmt = $conn->prepare("DELETE FROM cabangguru WHERE guru_id = ?");
+                    $stmt->bind_param("i", $guru_id);
+                    $stmt->execute();
+                    $stmt->close();
+                    
+                    // Hapus relasi di tabel guru_datales
+                    $stmt = $conn->prepare("DELETE FROM guru_datales WHERE guru_id = ?");
+                    $stmt->bind_param("i", $guru_id);
+                    $stmt->execute();
+                    $stmt->close();
+                    
+                    // Baru hapus guru
                     $stmt = $conn->prepare("DELETE FROM guru WHERE guru_id = ?");
                     $stmt->bind_param("i", $guru_id);
                     
@@ -81,13 +100,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         header("Location: guru.php?success=guru_deleted");
                         exit();
                     } else {
-                        $message = 'Gagal menghapus guru. Silakan coba lagi.';
+                        $message = 'Gagal menghapus guru: ' . $conn->error;
                         $message_type = 'danger';
                     }
                     $stmt->close();
                 } catch (Exception $e) {
                     error_log("Database error: " . $e->getMessage());
-                    $message = 'Terjadi kesalahan database. Silakan coba lagi.';
+                    $message = 'Error Database: ' . $e->getMessage();
                     $message_type = 'danger';
                 }
             }
