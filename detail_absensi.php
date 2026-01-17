@@ -386,7 +386,7 @@ try {
         LEFT JOIN tipeles tl ON jt.tipeles_id = tl.tipeles_id
         LEFT JOIN jenisles jl ON tl.jenisles_id = jl.jenisles_id
         LEFT JOIN jadwal_slot js ON sd.slot_id = js.slot_id
-        LEFT JOIN cabangGuru cg ON js.cabangguruID = cg.id
+        LEFT JOIN cabangguru cg ON js.cabangguruID = cg.id
         LEFT JOIN guru g ON cg.guru_id = g.guru_id
         WHERE sd.siswa_id = ? AND sd.status = 'aktif' AND sd.is_history = 0
         ORDER BY sd.datales_id ASC
